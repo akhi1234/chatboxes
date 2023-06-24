@@ -1,0 +1,21 @@
+
+  .chat-app {
+    padding: 20px;
+  }
+  
+  .chat-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .chat-box-wrapper {
+    position: relative;
+  }
+  
+  button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  
