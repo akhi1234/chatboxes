@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ChatBox from './ChatBox';
+import { addChatBox, closeChatBox } from './reducer/actions';
 import './chat.css'
 
 const ChatApp = () => {
-  const [chatBoxes, setChatBoxes] = useState([]);
+  const chatBoxes = useSelector(state => state.chatBoxes);
+  const dispatch = useDispatch();
+
 
   const handleAddChatBox = () => {
-    const newChatBox = <ChatBox key={chatBoxes.length} />;
-    setChatBoxes([...chatBoxes, newChatBox]);
+    dispatch(addChatBox());
   };
 
   const handleCloseChatBox = (index) => {
-    const updatedChatBoxes = [...chatBoxes];
-    updatedChatBoxes.splice(index, 1);
-    setChatBoxes(updatedChatBoxes);
+    dispatch(closeChatBox(index));
   };
 
   return (
     <div className="chat-app">
       <div className="chat-boxes">
-        {chatBoxes.map((chatBox, index) => (
-          <div className="chat-box-wrapper" key={index}>
-            {chatBox}
-            <button onClick={() => handleCloseChatBox(index)}>Close</button>
+        {chatBoxes.map((_, index) => (
+          <div key={index} className="chat-box-wrapper">
+            <button
+              className="close-button"
+              onClick={() => handleCloseChatBox(index)}
+            >
+              X
+            </button>
+            <ChatBox index={index} />
           </div>
         ))}
       </div>
